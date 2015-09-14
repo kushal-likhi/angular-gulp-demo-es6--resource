@@ -6,7 +6,7 @@
     <div class="text-right">
       <form class="form-inline" ng-submit="todo.saveItem()">
         <div class="form-group">
-          <label for="newItem"></label>
+          <label for="newItem">Add Item &rArr;</label>
           <input type="text" required="required" id="newItem" class="form-control" placeholder="Description" ng-model="todo.newItemDescription" style="width: 300px" />
         </div>
         <button type="submit" class="btn btn-success">Save Todo Item</button>
@@ -39,9 +39,18 @@
             </select>
           </td>
           <td>{{$index + 1}}</td>
-          <td>{{item.description}}</td>
+          <td>
+            <span ng-hide="item.editMode">{{item.description}}</span>
+            <form ng-show="item.editMode" class="form-inline" ng-submit="todo.editModeSave($index)">
+              <div class="form-group">
+                <input type="text" required="required" class="form-control input-sm" placeholder="Description" ng-model="item.newDescription" />
+              </div>
+              <button type="submit" class="btn btn-success btn-xs">Update</button>
+              <button type="button" class="btn btn-danger btn-xs" ng-click="todo.closeEditMode($index)">Cancel</button>
+            </form>
+          </td>
           <td>{{item.postedAt | humanTime}}</td>
-          <td><button class="btn btn-xs btn-info" ng-click="todo.editItem(item)">Edit</button></td>
+          <td><button class="btn btn-xs btn-info" ng-click="todo.openEditMode($index)">Edit</button></td>
           <td><button class="btn btn-xs btn-danger" ng-click="todo.deleteItem($index)">Delete</button></td>
         </tr>
         <tr ng-show="todo.getItems().length == 0">

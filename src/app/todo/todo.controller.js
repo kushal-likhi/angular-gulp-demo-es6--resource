@@ -30,6 +30,21 @@ class TodoController {
     this.items.splice(index, 1);
   }
 
+  closeEditMode(index) {
+    this.items[index].editMode = false;
+    this.items[index].newDescription = null;
+  }
+
+  openEditMode(index) {
+    this.items[index].editMode = true;
+    this.items[index].newDescription = this.items[index].description;
+  }
+
+  editModeSave(index) {
+    this.items[index].description = this.items[index].newDescription;
+    this.closeEditMode(index);
+  }
+
 }
 
 export default TodoController;
