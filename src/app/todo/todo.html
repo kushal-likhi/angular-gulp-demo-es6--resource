@@ -1,13 +1,54 @@
 <div class="jumbotron text-center">
-  <h1>Welcome</h1>
+  <h1>Todo List</h1>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="text-right">
+      <form class="form-inline" ng-submit="todo.saveItem()">
+        <div class="form-group">
+          <label for="newItem"></label>
+          <input type="text" required="required" id="newItem" class="form-control" placeholder="Description" ng-model="todo.newItemDescription" style="width: 300px" />
+        </div>
+        <button type="submit" class="btn btn-success">Save Todo Item</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row">&nbsp;</div>
+<div class="row" ng-hide="todo.loading">
+  <div class="col-md-12 col-sm-12">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>S.No</th>
+          <th>Description</th>
+          <th>Posted at</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in todo.getItems()">
+          <td>
+            <select ng-model="item.state">
+              <option value="pending">Pending</option>
+              <option value="done">Done</option>
+              <option value="paused">Paused</option>
+              <option value="wont-do">Won't Do</option>
+            </select>
+          </td>
+          <td>{{$index + 1}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.postedAt | humanTime}}</td>
+          <td><button class="btn btn-xs btn-info" ng-click="todo.editItem(item)">Edit</button></td>
+          <td><button class="btn btn-xs btn-danger" ng-click="todo.deleteItem(item)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
 
-  <p class="lead">
-    A small quick demo app demonstrating ES6 and $Resource based API interface. </p>
-
-  <p>
-    <button type="button" class="btn btn-lg btn-success" ui-sref="todo">Go To ToDo App!</button>
-    <button type="button" class="btn btn-lg btn-info" ng-click="main.showToastr()">Say Hello!</button>
-  </p>
-  <p>
-    Small todo list demo. </p>
+  </div>
+</div>
+<div class="row" ng-show="todo.loading">
+  <div class="col-md-6 col-sm-6 col-md-push-3 col-sm-push-3 text-center bg-warning">Loading Items...</div>
 </div>
