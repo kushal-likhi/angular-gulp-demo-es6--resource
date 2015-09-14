@@ -1,7 +1,9 @@
 {
   "name": "angularDemo",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "hapi": "^10.0.0"
+  },
   "scripts": {
     "test": "gulp test"
   },
