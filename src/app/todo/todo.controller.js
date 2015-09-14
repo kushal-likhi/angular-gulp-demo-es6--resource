@@ -21,26 +21,30 @@ class TodoController {
     this.items.push({
       postedAt: new Date(),
       description: this.newItemDescription,
-      state: 'pending'
+      state: 'pending',
+      order: this.items.length
     });
     this.newItemDescription = null;
   }
 
-  deleteItem(index) {
-    this.items.splice(index, 1);
+  deleteItem(item) {
+    this.items.splice(this.items.indexOf(item), 1);
   }
 
-  closeEditMode(index) {
+  closeEditMode(item) {
+    var index = this.items.indexOf(item);
     this.items[index].editMode = false;
     this.items[index].newDescription = null;
   }
 
-  openEditMode(index) {
+  openEditMode(item) {
+    var index = this.items.indexOf(item);
     this.items[index].editMode = true;
     this.items[index].newDescription = this.items[index].description;
   }
 
-  editModeSave(index) {
+  editModeSave(item) {
+    var index = this.items.indexOf(item);
     this.items[index].description = this.items[index].newDescription;
     this.closeEditMode(index);
   }

@@ -57,20 +57,20 @@
           <td>
             <span ng-hide="item.editMode">{{item.description}}</span>
 
-            <form ng-show="item.editMode" class="form-inline" ng-submit="todo.editModeSave($index)">
+            <form ng-show="item.editMode" class="form-inline" ng-submit="todo.editModeSave(item)">
               <div class="form-group">
                 <input type="text" required="required" class="form-control input-sm" placeholder="Description" ng-model="item.newDescription"/>
               </div>
               <button type="submit" class="btn btn-success btn-xs">Update</button>
-              <button type="button" class="btn btn-danger btn-xs" ng-click="todo.closeEditMode($index)">Cancel</button>
+              <button type="button" class="btn btn-danger btn-xs" ng-click="todo.closeEditMode(item)">Cancel</button>
             </form>
           </td>
           <td>{{item.postedAt | humanTime}}</td>
           <td>
-            <button class="btn btn-xs btn-info" ng-click="todo.openEditMode($index)">Edit</button>
+            <button class="btn btn-xs btn-info" ng-click="todo.openEditMode(item)">Edit</button>
           </td>
           <td>
-            <button class="btn btn-xs btn-danger" ng-click="todo.deleteItem($index)">Delete</button>
+            <button class="btn btn-xs btn-danger" ng-click="todo.deleteItem(item)">Delete</button>
           </td>
         </tr>
         <tr ng-show="todo.getItems().length == 0">
