@@ -42,7 +42,7 @@
           <td>{{item.description}}</td>
           <td>{{item.postedAt | humanTime}}</td>
           <td><button class="btn btn-xs btn-info" ng-click="todo.editItem(item)">Edit</button></td>
-          <td><button class="btn btn-xs btn-danger" ng-click="todo.deleteItem(item)">Delete</button></td>
+          <td><button class="btn btn-xs btn-danger" ng-click="todo.deleteItem($index)">Delete</button></td>
         </tr>
         <tr ng-show="todo.getItems().length == 0">
           <td colspan="6" class="text-center bg-info">No Items Found! Get started by adding your first item above!</td>

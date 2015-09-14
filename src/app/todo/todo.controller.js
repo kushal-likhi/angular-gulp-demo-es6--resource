@@ -26,6 +26,10 @@ class TodoController {
     this.newItemDescription = null;
   }
 
+  deleteItem(index) {
+    this.items.splice(index, 1);
+  }
+
 }
 
 export default TodoController;
