@@ -1,23 +1,23 @@
 class TodoController {
-  constructor ($scope) {
+  constructor($scope) {
     'ngInject';
-
+    this.scope = $scope;
     this.items = [];
     this.loading = true;
     var self = this;
-    setTimeout(function(){
+    setTimeout(function () {
       self.loading = false;
       console.log(self);
-      $scope.$apply();
-    },2000);
+      self.scope.$apply();
+    }, 2000);
 
   }
 
-  getItems(){
+  getItems() {
     return this.items || [];
   }
 
-  saveItem(){
+  saveItem() {
     this.items.push({
       postedAt: new Date(),
       description: this.newItemDescription,
@@ -25,6 +25,7 @@ class TodoController {
     });
     this.newItemDescription = null;
   }
+
 }
 
 export default TodoController;
