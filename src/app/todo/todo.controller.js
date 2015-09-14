@@ -1,16 +1,20 @@
 class TodoController {
-  constructor($scope) {
+  constructor($scope, TodoItem, toastr) {
     'ngInject';
     this.scope = $scope;
     this.items = [];
     this.loading = true;
-    var self = this;
-    setTimeout(function () {
-      self.loading = false;
-      console.log(self);
-      self.scope.$apply();
-    }, 2000);
+    this.TodoItem = TodoItem;
+    this.toastr = toastr;
+    this.loadItems();
+  }
 
+  loadItems() {
+    var self = this;
+    this.TodoItem.query(function (items) {
+      self.items = items;
+      self.loading = false;
+    });
   }
 
   getItems() {
@@ -18,16 +22,30 @@ class TodoController {
   }
 
   saveItem() {
-    this.items.push({
+    var self = this;
+    var item = {
       postedAt: new Date(),
       description: this.newItemDescription,
       state: 'pending',
       order: this.items.length
-    });
+    };
+    this.items.push(item);
     this.newItemDescription = null;
+    new this.TodoItem(item).$save(function (_item) {
+      if (_item) {
+        self.toastr.success('Saved Item in Database!');
+        self.items[item.order].id = _item.id;
+      }
+    })
   }
 
   deleteItem(item) {
+    var self = this;
+    item.$remove(function (resp) {
+      if (resp) {
+        self.toastr.success('Removed From Database!');
+      }
+    });
     this.items.splice(this.items.indexOf(item), 1);
   }
 
