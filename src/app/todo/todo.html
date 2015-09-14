@@ -7,7 +7,7 @@
       <form class="form-inline" ng-submit="todo.saveItem()">
         <div class="form-group">
           <label for="newItem">Add Item &rArr;</label>
-          <input type="text" required="required" id="newItem" class="form-control" placeholder="Description" ng-model="todo.newItemDescription" style="width: 300px" />
+          <input type="text" required="required" id="newItem" class="form-control" placeholder="Description" ng-model="todo.newItemDescription" style="width: 300px"/>
         </div>
         <button type="submit" class="btn btn-success">Save Todo Item</button>
       </form>
@@ -20,16 +20,31 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>State</th>
+          <th>
+            State&nbsp;
+            <i class="glyphicon glyphicon-sort" ng-hide="todo.sort=='state'" ng-click="todo.sort='state';todo.order=false"></i>
+            <i class="glyphicon glyphicon-chevron-up" ng-show="todo.sort=='state' && todo.order == false" ng-click="todo.order=true"></i>
+            <i class="glyphicon glyphicon-chevron-down" ng-show="todo.sort=='state' && todo.order == true" ng-click="todo.order = false"></i>
+          </th>
           <th>S.No</th>
-          <th>Description</th>
-          <th>Posted at</th>
+          <th>
+            Description&nbsp;
+            <i class="glyphicon glyphicon-sort" ng-hide="todo.sort=='description'" ng-click="todo.sort='description';todo.order=false"></i>
+            <i class="glyphicon glyphicon-chevron-up" ng-show="todo.sort=='description' && todo.order == false" ng-click="todo.order=true"></i>
+            <i class="glyphicon glyphicon-chevron-down" ng-show="todo.sort=='description' && todo.order == true" ng-click="todo.order = false"></i>
+          </th>
+          <th>
+            Posted at&nbsp;
+            <i class="glyphicon glyphicon-sort" ng-hide="todo.sort=='postedAt'" ng-click="todo.sort='postedAt';todo.order=false"></i>
+            <i class="glyphicon glyphicon-chevron-up" ng-show="todo.sort=='postedAt' && todo.order == false" ng-click="todo.order=true"></i>
+            <i class="glyphicon glyphicon-chevron-down" ng-show="todo.sort=='postedAt' && todo.order == true" ng-click="todo.order = false"></i>
+          </th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="item in todo.getItems()" ng-class="{'bg-danger': item.state == 'wont-do', 'bg-success': item.state == 'done', 'bg-warning': item.state == 'paused'}">
+        <tr ng-repeat="item in todo.getItems() | orderBy:todo.sort:todo.order" ng-class="{'bg-danger': item.state == 'wont-do', 'bg-success': item.state == 'done', 'bg-warning': item.state == 'paused'}">
           <td>
             <select ng-model="item.state">
               <option value="pending">Pending</option>
@@ -41,17 +56,22 @@
           <td>{{$index + 1}}</td>
           <td>
             <span ng-hide="item.editMode">{{item.description}}</span>
+
             <form ng-show="item.editMode" class="form-inline" ng-submit="todo.editModeSave($index)">
               <div class="form-group">
-                <input type="text" required="required" class="form-control input-sm" placeholder="Description" ng-model="item.newDescription" />
+                <input type="text" required="required" class="form-control input-sm" placeholder="Description" ng-model="item.newDescription"/>
               </div>
               <button type="submit" class="btn btn-success btn-xs">Update</button>
               <button type="button" class="btn btn-danger btn-xs" ng-click="todo.closeEditMode($index)">Cancel</button>
             </form>
           </td>
           <td>{{item.postedAt | humanTime}}</td>
-          <td><button class="btn btn-xs btn-info" ng-click="todo.openEditMode($index)">Edit</button></td>
-          <td><button class="btn btn-xs btn-danger" ng-click="todo.deleteItem($index)">Delete</button></td>
+          <td>
+            <button class="btn btn-xs btn-info" ng-click="todo.openEditMode($index)">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-xs btn-danger" ng-click="todo.deleteItem($index)">Delete</button>
+          </td>
         </tr>
         <tr ng-show="todo.getItems().length == 0">
           <td colspan="6" class="text-center bg-info">No Items Found! Get started by adding your first item above!</td>

@@ -12,3 +12,8 @@
 .thumbnail img.pull-right {
   width: 50px;
 }
+
+th i.glyphicon {
+  font-size: 10px;
+  cursor: pointer;
+}
