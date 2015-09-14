@@ -72,7 +72,7 @@ class TodoController {
     var self = this;
     this.TodoItem.update(item, function (_item) {
       if (_item) {
-        self.toastr.info('Updated Note in Database!');
+        self.toastr.info('Updated Item in Database!');
       }
     });
   }
