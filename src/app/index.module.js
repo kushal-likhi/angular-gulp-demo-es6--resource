@@ -10,6 +10,8 @@ import WebDevTecService from './components/webDevTec/webDevTec.service.js';
 
 import NavbarDirective from './components/navbar/navbar.directive.js';
 
+import HumanTimeFilter from './todo/filters/filter.humanTime.js';
+
 angular.module('angularDemo', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap'])
   .constant('toastr', toastr)
   .constant('moment', moment)
@@ -17,6 +19,7 @@ angular.module('angularDemo', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize'
   .config(routerConfig)
   .run(runBlock)
   .service('webDevTec', WebDevTecService)
+  .filter('humanTime', HumanTimeFilter)
   .controller('MainController', MainController)
   .controller('TodoController', TodoController)
   .directive('acmeNavbar', () => new NavbarDirective());
