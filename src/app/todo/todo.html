@@ -46,7 +46,7 @@
       <tbody>
         <tr ng-repeat="item in todo.getItems() | orderBy:todo.sort:todo.order" ng-class="{'bg-danger': item.state == 'wont-do', 'bg-success': item.state == 'done', 'bg-warning': item.state == 'paused'}">
           <td>
-            <select ng-model="item.state">
+            <select ng-model="item.state" ng-change="todo.updateInDatabase(item)">
               <option value="pending">Pending</option>
               <option value="done">Done</option>
               <option value="paused">Paused</option>

@@ -34,7 +34,7 @@ class TodoController {
     new this.TodoItem(item).$save(function (_item) {
       if (_item) {
         self.toastr.success('Saved Item in Database!');
-        self.items[item.order].id = _item.id;
+        self.items[item.order] = _item;
       }
     })
   }
@@ -64,7 +64,17 @@ class TodoController {
   editModeSave(item) {
     var index = this.items.indexOf(item);
     this.items[index].description = this.items[index].newDescription;
-    this.closeEditMode(index);
+    this.closeEditMode(item);
+    this.updateInDatabase(item);
+  }
+
+  updateInDatabase(item) {
+    var self = this;
+    this.TodoItem.update(item, function (_item) {
+      if (_item) {
+        self.toastr.info('Updated Note in Database!');
+      }
+    });
   }
 
 }
