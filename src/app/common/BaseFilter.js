@@ -1,9 +1,7 @@
 class BaseFilter {
 
   factory() {
-    return this.curry(this, function () {
-      return this.curry(this, this.convert);
-    });
+    return this.curry(this, this.convert);
   }
 
   curry(thisOpr, fn) {

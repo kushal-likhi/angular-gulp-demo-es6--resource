@@ -11,4 +11,4 @@ class HumanTimeFilter extends BaseFilter {
   }
 }
 
-export default new HumanTimeFilter().factory();
+export default HumanTimeFilter;

@@ -18,7 +18,7 @@ angular.module('angularDemo', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize'
   .config(config)
   .config(routerConfig)
   .run(runBlock)
-  .filter('humanTime', HumanTimeFilter)
+  .filter('humanTime', () => new HumanTimeFilter().factory())
   .factory('TodoItem', TodoItemResource)
   .controller('MainController', MainController)
   .controller('TodoController', TodoController)
