@@ -44,12 +44,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="item in todo.getItems() | orderBy:todo.sort:todo.order" ng-class="{'bg-danger': item.state == 'wont-do', 'bg-success': item.state == 'done', 'bg-warning': item.state == 'paused'}">
+        <tr ng-repeat="item in todo.getItems() | orderBy:todo.sort:todo.order" ng-class="{'bg-danger': item.state == 'wont-do', 'bg-success': item.state == 'done', 'bg-warning': item.state == 'plow', 'bg-info': item.state == 'phigh'}">
           <td>
             <select ng-model="item.state" ng-change="todo.updateInDatabase(item)">
               <option value="pending">Pending</option>
               <option value="done">Done</option>
-              <option value="paused">Paused</option>
+              <option value="phigh">Priority High</option>
+              <option value="plow">Priority Lowest</option>
               <option value="wont-do">Won't Do</option>
             </select>
           </td>
